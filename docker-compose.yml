@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 services:
   psql:
     image: postgres
@@ -10,18 +10,10 @@ services:
       - 5432:5432
   web:
     image: waghih/setel-assignment-web:latest
-    resources:
-      limits:
-        cpus: '0.001'
-        memory: 50M
-      reservations:
-        cpus: '0.0001'
-        memory: 20M
     ports:
       - 5000:5000
   order:
     image: waghih/setel-assignment-order:latest
-    memory: 512
     ports:
       - 4200:4200
     environment:
@@ -36,7 +28,6 @@ services:
       - psql
   payment:
     image: waghih/setel-assignment-payment:latest
-    memory: 512
     ports:
       - 4001:4001
     environment:
