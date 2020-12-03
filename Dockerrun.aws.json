@@ -1,0 +1,111 @@
+{
+  "containerDefinitions": [
+      {
+          "environment": [
+              {
+                  "name": "DB_HOST",
+                  "value": "psql"
+              },
+              {
+                  "name": "DB_PORT",
+                  "value": "5432"
+              },
+              {
+                  "name": "DB_USERNAME",
+                  "value": "postgres"
+              },
+              {
+                  "name": "DB_PASS",
+                  "value": "None"
+              },
+              {
+                  "name": "DB_DIALECT",
+                  "value": "postgres"
+              },
+              {
+                  "name": "PAYMENT_HOST",
+                  "value": "payment"
+              },
+              {
+                  "name": "ORDER_HOST",
+                  "value": "order"
+              }
+          ],
+          "essential": true,
+          "image": "waghih/setel-assignment-order:latest",
+          "memory": 200,
+          "cpu": 1,
+          "links": [
+              "psql"
+          ],
+          "name": "order",
+          "portMappings": [
+              {
+                  "containerPort": 4200,
+                  "hostPort": 4200
+              }
+          ]
+      },
+      {
+          "environment": [
+              {
+                  "name": "PAYMENT_HOST",
+                  "value": "payment"
+              },
+              {
+                  "name": "ORDER_HOST",
+                  "value": "order"
+              }
+          ],
+          "essential": true,
+          "image": "waghih/setel-assignment-payment:latest",
+          "memory": 200,
+          "cpu": 1,
+          "name": "payment",
+          "portMappings": [
+              {
+                  "containerPort": 4001,
+                  "hostPort": 4001
+              }
+          ]
+      },
+      {
+          "environment": [
+              {
+                  "name": "POSTGRES_DB",
+                  "value": "order_microservice"
+              },
+              {
+                  "name": "POSTGRES_HOST_AUTH_METHOD",
+                  "value": "trust"
+              }
+          ],
+          "essential": true,
+          "image": "postgres",
+          "name": "psql",
+          "memory": 200,
+          "cpu": 1,
+          "portMappings": [
+              {
+                  "containerPort": 5432,
+                  "hostPort": 5432
+              }
+          ]
+      },
+      {
+          "essential": true,
+          "image": "waghih/setel-assignment-web:latest",
+          "name": "web",
+          "memory": 200,
+          "cpu": 1,
+          "portMappings": [
+              {
+                  "containerPort": 5000,
+                  "hostPort": 5000
+              }
+          ]
+      }
+  ],
+  "family": "",
+  "volumes": []
+}
